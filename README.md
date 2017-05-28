@@ -1,1 +1,0 @@
-# gulp-project-template
