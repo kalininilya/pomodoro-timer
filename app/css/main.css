@@ -1,11 +1,11 @@
 #svg circle {
   stroke-dashoffset: 0;
   transition: stroke-dashoffset 1s linear;
-  stroke: #666;
-  stroke-width: 1em; }
+  stroke: #ed4444;
+  stroke-width: 0.4em; }
 
 #svg #bar {
-  stroke: #E84748; }
+  stroke: #fefefe; }
 
 #cont {
   display: block;
@@ -31,26 +31,47 @@
   line-height: 160px;
   font-size: 2em; }
 
-input {
-  color: #000; }
-
 /* Make things perty */
 html {
   height: 100%; }
 
 body {
-  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-  color: #000;
+  font-family: 'Quicksand', sans-serif;
+  color: #fefefe;
   height: 100%;
   padding-top: 2em;
-  text-align: center; }
+  text-align: center;
+  background-color: #fefefe;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box; }
 
-input {
-  border: 1px solid #666;
-  background: #333;
-  color: #fff;
-  padding: 0.5em;
-  box-shadow: none;
-  outline: none !important;
-  margin: 1em auto;
-  text-align: center; }
+.pomodoro-timer {
+  width: 300px;
+  height: 400px;
+  background-color: #ff4747;
+  box-shadow: 2px 2px 5px #888888;
+  border-radius: 2px; }
+
+h1 {
+  font-weight: 100; }
+
+.btn {
+  font-family: 'Quicksand', sans-serif;
+  color: white;
+  outline: none;
+  border: 0;
+  background-color: #ff4747;
+  min-width: 100px;
+  min-height: 40px;
+  border: 1px solid white;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  cursor: pointer;
+  border-radius: 2px; }
+
+.btn:hover {
+  background-color: #ff7c7c; }
+
+.btn:active {
+  background-color: #ff4747; }

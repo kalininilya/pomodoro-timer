@@ -1,4 +1,5 @@
-//js
+//Pomodoro-timer main-script
+
 class Timer {
   constructor(workTime, breakTime) {
     this.defaultWorkTime = workTime;
@@ -8,6 +9,7 @@ class Timer {
     this.paused = false;
     this.modeBreak = false;
     this.timeout = null;
+    this.running = false;
   }
   formatTime(time) {
     let seconds = time % 60;
@@ -42,30 +44,45 @@ class Timer {
     }
   }
   start() {
+    clearTimeout(this.timeout);
     this.workTime = this.defaultWorkTime;
     this.breakTime = this.defaultBreakTime;
     this.paused = false;
+    this.running = true;
     this.modeBreak = false;
-    clearTimeout(this.timeout);
+    document.querySelector(".pause-resume-btn").innerHTML = "pause";
     this.tick();
   }
   togglePause() {
     this.paused = !this.paused;
-    if (this.paused) {
+    if (this.paused && this.running) {
       clearTimeout(this.timeout);
+      document.querySelector(".pause-resume-btn").innerHTML = "resume";
     }
-    if (!this.paused) {
+    if (!this.paused && this.running) {
       this.tick();
+      document.querySelector(".pause-resume-btn").innerHTML = "pause";
     }
   }
   renderTimer() {
-    document.querySelector(".time").innerHTML = this.formatTime(this.workTime);
-    document.querySelector(".break-time").innerHTML = this.formatTime(
-      this.breakTime
-    );
     const percent = this.workTime / this.defaultWorkTime * 100;
     updateCircle(percent, this.formatTime(this.workTime));
   }
+}
+
+function updateCircle(val, caption) {
+  const circle = document.querySelector("#svg #bar");
+  var r = circle.getAttribute("r");
+  var c = Math.PI * (r * 2);
+  if (val < 0) {
+    val = 0;
+  }
+  if (val > 100) {
+    val = 100;
+  }
+  var pct = (100 - val) / 100 * c;
+  circle.style.strokeDashoffset = pct;
+  document.querySelector("#cont").setAttribute("data-pct", caption);
 }
 
 timer = new Timer(1500, 300);
@@ -74,23 +91,3 @@ startBtn = document.querySelector(".start-btn");
 startBtn.addEventListener("click", timer.start.bind(timer));
 pauseResumeBtn = document.querySelector(".pause-resume-btn");
 pauseResumeBtn.addEventListener("click", timer.togglePause.bind(timer));
-
-function updateCircle(val, caption) {
-  const circle = document.querySelector("#svg #bar");
-
-  var r = circle.getAttribute("r");
-  var c = Math.PI * (r * 2);
-
-  if (val < 0) {
-    val = 0;
-  }
-  if (val > 100) {
-    val = 100;
-  }
-
-  var pct = (100 - val) / 100 * c;
-  circle.style.strokeDashoffset = pct;
-  document.querySelector("#cont").setAttribute("data-pct", caption);
-
-  // $("#cont").attr("data-pct", val);
-}
